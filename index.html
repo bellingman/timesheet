@@ -14,10 +14,11 @@
   <button onclick="sendAction('Stop')">Stop</button>
 
   <script>
-    const scriptUrl = "https://script.google.com/macros/library/d/1LkyscCKDpqLePNdjyS-dX9RMkeoqmzTALACe2NGafpbK7i78ZMy_PdIU/7";
+    const scriptUrl = "https://script.google.com/macros/s/AKfycbwDisqQqTKkSIpvkYdcmy5TpaDY8WJvIhtPFFUiIfOsiOQTAmVg0MOJ25UHf4ZDTOOs/exec";
 
     function sendAction(action) {
       fetch(scriptUrl, {
+        redirect: "follow",
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action: action })
@@ -32,6 +33,16 @@
       })
       .catch(error => alert("Request failed: " + error));
     }
+    
+    // fetch(URL, {
+    //   redirect: "follow",
+    //   method: "POST",
+    //   body: JSON.stringify(DATA),
+    //   headers: {
+    //     "Content-Type": "text/plain;charset=utf-8",
+    //   },
+    // })
+
   </script>
 </body>
 </html>
