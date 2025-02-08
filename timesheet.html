@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Online Games Time Sheet</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+    button { font-size: 20px; padding: 10px 20px; margin: 10px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>History</h1>
+  <button onclick="sendAction('Start')">Start</button>
+  <button onclick="sendAction('Stop')">Stop</button>
+
+  <script>
+    const appUrl = "https://script.google.com/macros/s/AKfycbyA_DtQOYvwLt-vrHsx0Q4rxNx7ymeqdr9v8UxozLbel0KFcFmjGqXQ2kIOb4KPWW6M/exec"; // Replace with your Apps Script URL
+    const scriptUrl = "https://cors-anywhere.herokuapp.com/"+appUrl;
+
+    function sendAction(action) {
+      fetch(scriptUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: action })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.result === "success") {
+          alert(`${action} recorded at ${new Date(data.timestamp).toLocaleString()}`);
+        } else {
+          alert("Error: " + data.error);
+        }
+      })
+      .catch(error => alert("Request failed: " + error));
+    }
+  </script>
+</body>
+</html>
