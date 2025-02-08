@@ -19,31 +19,19 @@
     function sendAction(action) {
       fetch(scriptUrl, {
         redirect: "follow",
-        mode: 'no-cors', // Important!
+        mode: 'no-cors', // Keep this
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "text/plain"  // Changed from application/json
+        },
         body: JSON.stringify({ action: action })
       })
-      .then(response => response.json())
-      .then(data => {
-        if (data.result === "success") {
-          alert(`${action} recorded at ${new Date(data.timestamp).toLocaleString()}`);
-        } else {
-          alert("Error: " + data.error);
-        }
+      .then(() => {
+        // Since we can't read the response with no-cors, just show a simple confirmation
+        alert(`${action} action sent at ${new Date().toLocaleString()}`);
       })
       .catch(error => alert("Request failed: " + error));
     }
-    
-    // fetch(URL, {
-    //   redirect: "follow",
-    //   method: "POST",
-    //   body: JSON.stringify(DATA),
-    //   headers: {
-    //     "Content-Type": "text/plain;charset=utf-8",
-    //   },
-    // })
-
   </script>
 </body>
 </html>
